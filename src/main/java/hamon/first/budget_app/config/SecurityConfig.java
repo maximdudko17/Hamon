@@ -55,7 +55,8 @@ public class SecurityConfig {
         //            .requestMatchers("/refresh/**").permitAll()
                     .requestMatchers("/my/logout").permitAll()
                     .requestMatchers(AUTH_WHITELIST).permitAll()
-                    .anyRequest().authenticated();
+                   // .anyRequest().authenticated();
+                    .anyRequest().permitAll();
 
         });
         http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
