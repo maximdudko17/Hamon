@@ -1,20 +1,22 @@
 package hamon.first.budget_app.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-@Table(name="Wallet")
+@Table(name="wallet")
+@Getter
+@Setter
 public class Wallet {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
-
-
-    @OneToMany(mappedBy = "user")
-    private List<User> users;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User users;
 }
