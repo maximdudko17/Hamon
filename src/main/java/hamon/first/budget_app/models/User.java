@@ -25,15 +25,21 @@ public class User {
 
     @Column(name = "email")
     private String email;
-    @Column(name = "created_at")
-    private LocalDateTime crated_at;
+    @Column(name = "crated_at")
+    private LocalDateTime created_at;
 
     @Column(name = "updated_at")
     private LocalDateTime updated_at;
 
     @OneToMany(mappedBy = "user")
-    private List<Wallet> wallet;
+    private List<Wallet> wallets;
 
+    public User() {
+    }
 
-
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }
