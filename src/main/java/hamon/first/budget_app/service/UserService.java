@@ -37,6 +37,7 @@ public class UserService {
 
     private void enrichSensor(User user) {
         user.setCreated_at(LocalDateTime.now());
+        user.setUpdated_at(LocalDateTime.now());
     }
 
 
