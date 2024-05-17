@@ -3,10 +3,14 @@ package hamon.first.budget_app.controllers;
 import hamon.first.budget_app.DTO.UserDTO;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.service.UserService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,13 +46,21 @@ public class UserController {
         userService.save(user);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public UserDTO createPost(@RequestBody UserDTO userDTO) {
-        User user = toUser(userDTO);
-        userService.save(user);
-        return toUserDTO(user);
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @ResponseBody
+//    public UserDTO createPost(@RequestBody UserDTO userDTO) {
+//        User user = toUser(userDTO);
+//        userService.save(user);
+//        return toUserDTO(user);
+//    }
+
+    @PostMapping("/registration")
+    public ResponseEntity<HttpStatus> registration(@RequestBody @Valid UserDTO userDTO) {
+
+        userService.save(toUser(userDTO));
+
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
 

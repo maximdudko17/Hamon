@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name="User")
+@Table(name="Userr")
 @Getter
 @Setter
 public class User {
@@ -25,7 +25,8 @@ public class User {
 
     @Column(name = "email")
     private String email;
-    @Column(name = "crated_at")
+
+    @Column(name = "created_at")
     private LocalDateTime created_at;
 
     @Column(name = "updated_at")
