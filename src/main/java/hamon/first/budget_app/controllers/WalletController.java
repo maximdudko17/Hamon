@@ -1,5 +1,6 @@
 package hamon.first.budget_app.controllers;
 
+import hamon.first.budget_app.DTO.UserDTO;
 import hamon.first.budget_app.DTO.WalletDTO;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.models.Wallet;
@@ -10,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/wallet")
@@ -33,6 +33,7 @@ public class WalletController {
         this.walletService = walletService;
         this.userService = userService;
     }
+
 
     @PostMapping("/create")
     public ResponseEntity<?> createWallet(@RequestBody WalletDTO walletDTO,

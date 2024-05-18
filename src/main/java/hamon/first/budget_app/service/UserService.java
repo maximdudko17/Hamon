@@ -25,7 +25,7 @@ public class UserService {
 
     public User findById(int id){
         Optional<User> user = userRepository.findById(id);
-        return user.orElse(null);
+        return user.orElseThrow(RuntimeException::new);
     }
 
     public Optional<User> loadUserByUsername(String username){
@@ -35,11 +35,11 @@ public class UserService {
 
     @Transactional
     public void save(User user){
-        enrichSensor(user);
+        enrichUser(user);
         userRepository.save(user);
     }
 
-    private void enrichSensor(User user) {
+    private void enrichUser(User user) {
         user.setCreated_at(LocalDateTime.now());
         user.setUpdated_at(LocalDateTime.now());
     }

@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WalletDTO {
-
     private int money;
+
+
 }

@@ -32,6 +32,10 @@ public class WalletService {
         return wallet.orElse(null);
     }
 
+    public List<Wallet> findPersonWallets(User user){
+        return walletRepository.findByUser(user);
+    }
+
 
     @Transactional
     public void save(Wallet wallet){

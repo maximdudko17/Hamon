@@ -2,12 +2,15 @@ package hamon.first.budget_app.controllers;
 
 import hamon.first.budget_app.DTO.UserDTO;
 import hamon.first.budget_app.models.User;
+import hamon.first.budget_app.models.Wallet;
 import hamon.first.budget_app.service.UserService;
+import hamon.first.budget_app.service.WalletService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -21,11 +24,14 @@ import java.util.stream.Collectors;
 public class UserController {
     private final UserService userService;
 
+    private final WalletService walletService;
+
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserController(UserService userService, ModelMapper modelMapper) {
+    public UserController(UserService userService, WalletService walletService, ModelMapper modelMapper) {
         this.userService = userService;
+        this.walletService = walletService;
         this.modelMapper = modelMapper;
     }
 
@@ -36,8 +42,15 @@ public class UserController {
 
     }
 
+    @GetMapping("/wallets")
+    public List<Wallet> getAllWallets(UsernamePasswordAuthenticationToken auth){
+        return walletService.findPersonWallets(userService.loadUserByUsername(auth.getName()).get());
+
+    }
+
+
     @GetMapping("/{id}")
-    public UserDTO getSensor(@PathVariable("id") int id){
+    public UserDTO getUser(@PathVariable("id") int id){
         return toUserDTO(userService.findById(id)); //Into JSON
     }
 
