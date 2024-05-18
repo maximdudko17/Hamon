@@ -1,5 +1,6 @@
 package hamon.first.budget_app.service;
 
+import hamon.first.budget_app.models.Category;
 import hamon.first.budget_app.models.Transaction;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.models.Wallet;
@@ -40,6 +41,14 @@ public class TransactionService {
 
     public List<Transaction> findWalletTransactions(Wallet wallet){
         return transactionRepository.findByWallet(wallet);
+    }
+
+    public List<Transaction> findByCategory(Category category){
+        return transactionRepository.findByCategory(category);
+    }
+
+    public List<Transaction> findByCategoryAndWallet(Category category, Wallet wallet){
+        return transactionRepository.findByCategoryAndWallet(category, wallet);
     }
 
     @Transactional

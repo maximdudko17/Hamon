@@ -1,10 +1,12 @@
 package hamon.first.budget_app.controllers;
 
 import hamon.first.budget_app.DTO.WalletDTO;
+import hamon.first.budget_app.models.Category;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.models.Wallet;
 import hamon.first.budget_app.requests.DecreaseAmountRequest;
 import hamon.first.budget_app.requests.IncreaseAmountRequest;
+import hamon.first.budget_app.service.CategoryService;
 import hamon.first.budget_app.service.TransactionService;
 import hamon.first.budget_app.service.UserService;
 import hamon.first.budget_app.service.WalletService;
@@ -29,12 +31,15 @@ public class WalletController {
 
     private final TransactionService transactionService;
 
+    private final CategoryService categoryService;
+
     @Autowired
-    public WalletController(ModelMapper modelMapper, WalletService walletService, UserService userService, TransactionService transactionService) {
+    public WalletController(ModelMapper modelMapper, WalletService walletService, UserService userService, TransactionService transactionService, CategoryService categoryService) {
         this.modelMapper = modelMapper;
         this.walletService = walletService;
         this.userService = userService;
         this.transactionService = transactionService;
+        this.categoryService = categoryService;
     }
 
 
@@ -76,6 +81,13 @@ public class WalletController {
         return ResponseEntity.ok(walletService.findById(id));
     }
 
+
+    @GetMapping("/{id}/categories/{category_id}")
+    public ResponseEntity<?> transactionCategories(@PathVariable int id, @PathVariable int category_id){
+        Wallet wallet = walletService.findById(id);
+        Category category = categoryService.getCategoryById(category_id);
+        return ResponseEntity.ok(transactionService.findByCategoryAndWallet(category, wallet));
+    }
 
     private Wallet convertToWallet(WalletDTO walletDTO){
         return modelMapper.map(walletDTO, Wallet.class);
