@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping()
-    public List<UserDTO> getAllSensor(){
+    public List<UserDTO> getAllUser(){
         return userService.findAll().stream().map(this::toUserDTO)
                 .collect(Collectors.toList());
 
