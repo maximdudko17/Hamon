@@ -7,8 +7,6 @@ import lombok.Setter;
 @Setter
 public class IncreaseAmountRequest {
 
-    private int id;
-
     private int amount;
 
 }

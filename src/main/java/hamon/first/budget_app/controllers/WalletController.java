@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -52,20 +49,21 @@ public class WalletController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/{id}/increase")
+    public ResponseEntity<?> increaseWalletMoney(@PathVariable int id, @RequestBody IncreaseAmountRequest increaseAmountRequest){
+        walletService.increaseWalletAmount(increaseAmountRequest.getAmount(), id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/{id}/decrease")
+    public ResponseEntity<?> decreaseWalletMoney(@PathVariable int id, @RequestBody DecreaseAmountRequest decreaseAmountRequest){
+        walletService.decreaseWalletAmount(decreaseAmountRequest.getAmount(), id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+
+
     private Wallet convertToWallet(WalletDTO walletDTO){
         return modelMapper.map(walletDTO, Wallet.class);
     }
-
-    @PostMapping("/increase")
-    public ResponseEntity<?> increaseWalletMoney(@RequestBody IncreaseAmountRequest increaseAmountRequest){
-        walletService.increaseWalletAmount(increaseAmountRequest.getAmount(), increaseAmountRequest.getId());
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
-
-    @PostMapping("/decrease")
-    public ResponseEntity<?> decreaseWalletMoney(@RequestBody DecreaseAmountRequest decreaseAmountRequest){
-        walletService.decreaseWalletAmount(decreaseAmountRequest.getAmount(), decreaseAmountRequest.getId());
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
-
 }
