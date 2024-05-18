@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
-    List<Wallet> findByWallet(Wallet wallet);
+    List<Transaction> findByWallet(Wallet wallet);
 
 }
