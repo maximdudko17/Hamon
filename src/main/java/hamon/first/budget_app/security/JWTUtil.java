@@ -24,7 +24,7 @@ public class JWTUtil {
                 .withSubject("User details")
                 .withClaim("username", username)
                 .withIssuedAt(new Date())
-                .withIssuer("tarasov")   //В реальных приложухах тут название проги
+                .withIssuer("BudgetApp")   //В реальных приложухах тут название проги
                 .withExpiresAt(expirationDate)
                 .sign(Algorithm.HMAC256(secret));
     }

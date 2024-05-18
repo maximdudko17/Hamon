@@ -28,6 +28,10 @@ public class UserService {
         return user.orElse(null);
     }
 
+    public Optional<User> loadUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+
 
     @Transactional
     public void save(User user){
