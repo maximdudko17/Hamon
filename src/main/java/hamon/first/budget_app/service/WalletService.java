@@ -47,6 +47,21 @@ public class WalletService {
     }
 
     @Transactional
+    public void decreaseWalletAmount(int amount, int wallet_id){
+        Wallet wallet = findById(wallet_id);
+        if (wallet == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (wallet.getMoney() - amount < 0){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        else{
+            wallet.setMoney(wallet.getMoney() - amount);
+            walletRepository.save(wallet);
+        }
+    }
+
+    @Transactional
     public void save(Wallet wallet){
         enrichSensor(wallet);
         walletRepository.save(wallet);
