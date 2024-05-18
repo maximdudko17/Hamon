@@ -6,7 +6,9 @@ import hamon.first.budget_app.repositories.UserRepository;
 import hamon.first.budget_app.repositories.WalletRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,9 +31,20 @@ public class WalletService {
 
     public Wallet findById(int id){
         Optional<Wallet> wallet = walletRepository.findById(id);
+        System.out.println(wallet);
         return wallet.orElse(null);
     }
 
+
+    @Transactional
+    public void increaseWalletAmount(int amount, int wallet_id){
+        Wallet wallet = findById(wallet_id);
+        if (wallet == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        wallet.setMoney(wallet.getMoney() + amount);
+        walletRepository.save(wallet);
+    }
 
     @Transactional
     public void save(Wallet wallet){

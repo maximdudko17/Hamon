@@ -3,6 +3,7 @@ package hamon.first.budget_app.controllers;
 import hamon.first.budget_app.DTO.WalletDTO;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.models.Wallet;
+import hamon.first.budget_app.requests.IncreaseAmountRequest;
 import hamon.first.budget_app.service.UserService;
 import hamon.first.budget_app.service.WalletService;
 import org.modelmapper.ModelMapper;
@@ -52,6 +53,12 @@ public class WalletController {
 
     private Wallet convertToWallet(WalletDTO walletDTO){
         return modelMapper.map(walletDTO, Wallet.class);
+    }
+
+    @PostMapping("/increase")
+    public ResponseEntity<?> increaseWalletMoney(@RequestBody IncreaseAmountRequest increaseAmountRequest){
+        walletService.increaseWalletAmount(increaseAmountRequest.getAmount(), increaseAmountRequest.getId());
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 }
