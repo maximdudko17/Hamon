@@ -48,7 +48,7 @@ public class SecurityConfig {
                     .requestMatchers("/login/**").permitAll()
                     .requestMatchers("/registration/**").permitAll()
                     .requestMatchers(AUTH_WHITELIST).permitAll()
-                    .anyRequest().authenticated();
+                    .anyRequest().permitAll();
 
         });
         http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));

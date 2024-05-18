@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-public class DecreaseWalletAmountTest {
+class DecreaseWalletAmountTest {
 
     @Mock
     private WalletRepository walletRepository;
@@ -46,7 +46,7 @@ public class DecreaseWalletAmountTest {
         Wallet walletId5 = new Wallet(2000);
         Mockito.when(walletRepository.findById(5)).thenReturn(Optional.of(walletId5));
         walletService.increaseWalletAmount(3000,5);
-        Assertions.assertEquals(walletId5.getMoney(), 5000);
+        Assertions.assertEquals(5000, walletId5.getMoney());
     }
 
 }

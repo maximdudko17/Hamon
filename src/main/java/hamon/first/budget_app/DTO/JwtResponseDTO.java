@@ -11,6 +11,8 @@ public class JwtResponseDTO {
 
     private String accessToken;
 
+    private String message;
+
 
     public JwtResponseDTO(String accessToken){
         this.accessToken = accessToken;

@@ -33,11 +33,11 @@ public class AuthController {
     @Operation(summary = "Регистрация пользователя", tags = {"add"})
     @PostMapping("/registration")
     public ResponseEntity<?> registration(@RequestBody UserDTO userDTO){
-        try {
+        //try {
             return new ResponseEntity<>(authService.register(convertToUser(userDTO)), HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity<>("Ошибка при регистрации", HttpStatus.NOT_FOUND);
-        }
+        //} catch (Exception e){
+           // return new ResponseEntity<>("Ошибка при регистрации", HttpStatus.NOT_FOUND);
+       // }
     }
     @Operation(summary = "Аутентификация пользователя", tags = {"login"})
     @PostMapping("/login")

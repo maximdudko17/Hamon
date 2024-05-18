@@ -37,7 +37,10 @@ public class AuthService {
     public JwtResponseDTO register(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return generateResponse(user);
+        JwtResponseDTO jwtResponseDTO = generateResponse(user);
+        jwtResponseDTO.setMessage("Добро пожаловать в игру по распределению бюджета!" +
+                "У вас одна цель: выжить, а сможете ли вы это сделать решит удача и холодный расчёт");
+        return jwtResponseDTO;
     }
 
     public JwtResponseDTO login(AuthenticationDTO authenticationDTO){
@@ -46,7 +49,10 @@ public class AuthService {
             if (!passwordEncoder.matches(authenticationDTO.getPassword(), user.get().getPassword())){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Неверный пароль");
             }
-            return generateResponse(user.get());
+            JwtResponseDTO jwtResponseDTO = generateResponse(user.get());
+            jwtResponseDTO.setMessage("Добро пожаловать в игру по распределению бюджета! \n" +
+                    "У вас одна цель: выжить, а сможете ли вы это сделать решит удача и холодный расчёт");
+            return jwtResponseDTO;
         }
         else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Пользователь с таким именем не найден");
