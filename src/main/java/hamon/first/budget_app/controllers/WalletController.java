@@ -4,6 +4,8 @@ import hamon.first.budget_app.DTO.UserDTO;
 import hamon.first.budget_app.DTO.WalletDTO;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.models.Wallet;
+import hamon.first.budget_app.requests.DecreaseAmountRequest;
+import hamon.first.budget_app.requests.IncreaseAmountRequest;
 import hamon.first.budget_app.service.UserService;
 import hamon.first.budget_app.service.WalletService;
 import org.modelmapper.ModelMapper;
@@ -51,8 +53,21 @@ public class WalletController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/{id}/increase")
+    public ResponseEntity<?> increaseWalletMoney(@PathVariable int id, @RequestBody IncreaseAmountRequest increaseAmountRequest){
+        walletService.increaseWalletAmount(increaseAmountRequest.getAmount(), id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/{id}/decrease")
+    public ResponseEntity<?> decreaseWalletMoney(@PathVariable int id, @RequestBody DecreaseAmountRequest decreaseAmountRequest){
+        walletService.decreaseWalletAmount(decreaseAmountRequest.getAmount(), id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+
+
     private Wallet convertToWallet(WalletDTO walletDTO){
         return modelMapper.map(walletDTO, Wallet.class);
     }
-
 }
