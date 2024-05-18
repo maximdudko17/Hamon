@@ -31,7 +31,6 @@ public class WalletService {
 
     public Wallet findById(int id){
         Optional<Wallet> wallet = walletRepository.findById(id);
-        System.out.println(wallet);
         return wallet.orElse(null);
     }
 

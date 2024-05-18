@@ -10,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,15 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserService userService;
 
     private final AuthService authService;
 
     private final ModelMapper modelMapper;
 
     @Autowired
-    public AuthController(UserService userService, AuthService authService, ModelMapper modelMapper) {
-        this.userService = userService;
+    public AuthController(AuthService authService, ModelMapper modelMapper) {
         this.authService = authService;
         this.modelMapper = modelMapper;
     }

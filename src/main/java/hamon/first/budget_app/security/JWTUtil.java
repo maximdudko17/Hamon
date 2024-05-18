@@ -35,8 +35,7 @@ public class JWTUtil {
                 .withIssuer("BudgetApp")
                 .build();
         DecodedJWT jwt = verifier.verify(token);
-        String name = jwt.getClaim("username").asString();
-        return name;
+        return jwt.getClaim("username").asString();
     }
 
 }
