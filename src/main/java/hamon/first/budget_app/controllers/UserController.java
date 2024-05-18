@@ -33,27 +33,29 @@ public class UserController {
     }
 
     @GetMapping()
-    public List<UserDTO> getAllUser(){
-        return userService.findAll().stream().map(this::toUserDTO)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<UserDTO>> getAllUser(){
+        return new ResponseEntity<>(userService.findAll().stream().map(this::toUserDTO)
+                .collect(Collectors.toList()), HttpStatus.OK);
 
     }
 
     @GetMapping("/wallets")
-    public List<Wallet> getAllWallets(UsernamePasswordAuthenticationToken auth){
-        return walletService.findPersonWallets(userService.loadUserByUsername(auth.getName()).get());
+    public ResponseEntity<List<Wallet>> getAllWallets(UsernamePasswordAuthenticationToken auth){
+        return new ResponseEntity<>(walletService.findPersonWallets
+                (userService.loadUserByUsername(auth.getName()).get()), HttpStatus.OK);
 
     }
 
 
     @GetMapping("/{id}")
-    public UserDTO getUser(@PathVariable("id") int id){
-        return toUserDTO(userService.findById(id)); //Into JSON
+    public ResponseEntity<UserDTO> getUser(@PathVariable("id") int id){
+        return new ResponseEntity<>(toUserDTO(userService.findById(id)), HttpStatus.OK); //Into JSON
     }
 
-    @PostMapping("/200")
-    public void create(@ModelAttribute("user") User user) {
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@ModelAttribute("user") User user) {
         userService.save(user);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 //    @PostMapping
