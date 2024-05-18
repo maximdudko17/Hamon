@@ -42,6 +42,7 @@ public class TransactionService {
         return wallet.orElse(null);
     }
 
+    @Transactional
     public List<Wallet> findWalletTransactions(Wallet wallet){
         return transactionRepository.findByWallet(wallet);
     }

@@ -1,11 +1,11 @@
 package hamon.first.budget_app.controllers;
 
-import hamon.first.budget_app.DTO.UserDTO;
 import hamon.first.budget_app.DTO.WalletDTO;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.models.Wallet;
 import hamon.first.budget_app.requests.DecreaseAmountRequest;
 import hamon.first.budget_app.requests.IncreaseAmountRequest;
+import hamon.first.budget_app.service.TransactionService;
 import hamon.first.budget_app.service.UserService;
 import hamon.first.budget_app.service.WalletService;
 import org.modelmapper.ModelMapper;
@@ -15,9 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/wallet")
@@ -29,11 +27,14 @@ public class WalletController {
 
     private final UserService userService;
 
+    private final TransactionService transactionService;
+
     @Autowired
-    public WalletController(ModelMapper modelMapper, WalletService walletService, UserService userService) {
+    public WalletController(ModelMapper modelMapper, WalletService walletService, UserService userService, TransactionService transactionService) {
         this.modelMapper = modelMapper;
         this.walletService = walletService;
         this.userService = userService;
+        this.transactionService = transactionService;
     }
 
 
@@ -63,6 +64,11 @@ public class WalletController {
     public ResponseEntity<?> decreaseWalletMoney(@PathVariable int id, @RequestBody DecreaseAmountRequest decreaseAmountRequest){
         walletService.decreaseWalletAmount(decreaseAmountRequest.getAmount(), id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/{id}/transactions")
+    public ResponseEntity<?> getAllWalletTransactions(@PathVariable int id){
+        return ResponseEntity.ok(transactionService.findWalletTransactions(walletService.findById(id)));
     }
 
    // @GetMapping("/{id}/money")
