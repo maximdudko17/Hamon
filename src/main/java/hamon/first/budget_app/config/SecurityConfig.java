@@ -47,11 +47,8 @@ public class SecurityConfig {
             authz
                     .requestMatchers("/login/**").permitAll()
                     .requestMatchers("/registration/**").permitAll()
-        //            .requestMatchers("/refresh/**").permitAll()
-                    .requestMatchers("/my/logout").permitAll()
                     .requestMatchers(AUTH_WHITELIST).permitAll()
-                   // .anyRequest().authenticated();
-                    .anyRequest().permitAll();
+                    .anyRequest().authenticated();
 
         });
         http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
@@ -63,7 +60,7 @@ public class SecurityConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
-        config.setAllowedOrigins(List.of("http://localhost:8080", "http://localhost:5173", "https://localhost:443"));
+        config.setAllowedOrigins(List.of("https://localhost:443"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH"));
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
