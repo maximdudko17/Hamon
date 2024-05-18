@@ -1,11 +1,15 @@
 package hamon.first.budget_app.controllers;
 
+import hamon.first.budget_app.DTO.TransactionDTO;
 import hamon.first.budget_app.DTO.UserDTO;
 import hamon.first.budget_app.DTO.WalletDTO;
+import hamon.first.budget_app.models.Transaction;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.models.Wallet;
 import hamon.first.budget_app.requests.DecreaseAmountRequest;
 import hamon.first.budget_app.requests.IncreaseAmountRequest;
+import hamon.first.budget_app.service.CategoryService;
+import hamon.first.budget_app.service.TransactionService;
 import hamon.first.budget_app.service.UserService;
 import hamon.first.budget_app.service.WalletService;
 import org.modelmapper.ModelMapper;
@@ -29,11 +33,17 @@ public class WalletController {
 
     private final UserService userService;
 
+    private final TransactionService transactionService;
+
+    private final CategoryService categoryService;
+
     @Autowired
-    public WalletController(ModelMapper modelMapper, WalletService walletService, UserService userService) {
+    public WalletController(ModelMapper modelMapper, WalletService walletService, UserService userService, TransactionService transactionService, CategoryService categoryService) {
         this.modelMapper = modelMapper;
         this.walletService = walletService;
         this.userService = userService;
+        this.transactionService = transactionService;
+        this.categoryService = categoryService;
     }
 
 
@@ -65,11 +75,29 @@ public class WalletController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-   // @GetMapping("/{id}/money")
- //   public
+    @PostMapping("/{id}/transaction/add")
+    public ResponseEntity<?> CreateTransaction(@PathVariable int id, @RequestBody TransactionDTO transactionDTO){
+        Transaction transaction = convertToTransaction(transactionDTO);
+        transaction.setCategory(categoryService.getCategoryById(transactionDTO.getId_category()));
+        transaction.setWallet(walletService.findById(id));
+        transactionService.save(transaction);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/{id}/transaction")
+    public List<Transaction> getAllTransactions(@PathVariable int id){
+        return transactionService.findWalletTransactions(walletService.findById(id));
+
+    }
+
 
 
     private Wallet convertToWallet(WalletDTO walletDTO){
         return modelMapper.map(walletDTO, Wallet.class);
+
+    }
+
+    private Transaction convertToTransaction(TransactionDTO transactionDTO) {
+        return modelMapper.map(transactionDTO, Transaction.class);
     }
 }
