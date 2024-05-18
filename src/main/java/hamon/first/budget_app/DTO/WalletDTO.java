@@ -12,6 +12,4 @@ import lombok.Setter;
 public class WalletDTO {
 
     private int money;
-
-    private int user_id;
 }

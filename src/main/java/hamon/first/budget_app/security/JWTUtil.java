@@ -32,7 +32,7 @@ public class JWTUtil {
     public String validateTokenAndRetrieveClaim(String token) throws JWTVerificationException {
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
                 .withSubject("User details")
-                .withIssuer("tarasov")
+                .withIssuer("BudgetApp")
                 .build();
         DecodedJWT jwt = verifier.verify(token);
         String name = jwt.getClaim("username").asString();
