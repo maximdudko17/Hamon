@@ -32,6 +32,9 @@ public class Wallet {
     @JsonIgnore
     private User user;
 
+    @OneToMany(mappedBy = "wallet")
+    private List<Transaction> transactions;
+
     public Wallet() {
     }
 

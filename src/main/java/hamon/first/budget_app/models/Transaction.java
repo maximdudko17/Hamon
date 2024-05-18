@@ -26,7 +26,7 @@ public class Transaction {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "wallet_id", referencedColumnName = "id")
     private Wallet wallet;
 
