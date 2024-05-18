@@ -71,8 +71,10 @@ public class WalletController {
         return ResponseEntity.ok(transactionService.findWalletTransactions(walletService.findById(id)));
     }
 
-   // @GetMapping("/{id}/money")
- //   public
+    @GetMapping("/{id}/money")
+    public ResponseEntity<?> getWalletMoney(@PathVariable int id){
+        return ResponseEntity.ok(walletService.findById(id));
+    }
 
 
     private Wallet convertToWallet(WalletDTO walletDTO){
