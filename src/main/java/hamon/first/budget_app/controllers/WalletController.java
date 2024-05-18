@@ -65,6 +65,8 @@ public class WalletController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+   // @GetMapping("/{id}/money")
+ //   public
 
 
     private Wallet convertToWallet(WalletDTO walletDTO){
