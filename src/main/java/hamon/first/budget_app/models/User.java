@@ -1,5 +1,6 @@
 package hamon.first.budget_app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,7 @@ public class User {
     private LocalDateTime updated_at;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Wallet> wallets;
 
     public User() {
