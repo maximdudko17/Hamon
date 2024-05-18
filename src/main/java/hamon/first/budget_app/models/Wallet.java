@@ -27,7 +27,7 @@ public class Wallet {
     @Column(name = "updated_at")
     private LocalDateTime updated_at;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;

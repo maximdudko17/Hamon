@@ -33,9 +33,8 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updated_at;
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<Wallet> wallets;
+    @OneToOne(mappedBy = "user")
+    private Wallet wallet;
 
     public User() {
     }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +20,15 @@ public class Category {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "reasonCategory")
+    private List<Event> reasonEvents;
+
+    @OneToMany(mappedBy = "consequenceCategory")
+    private List<Event> consequencesEvents;
+
+    @Column(name = "survival_amount")
+    private int survivalAmount;
 
     @Column(name = "created_at")
     private LocalDateTime created_at;
