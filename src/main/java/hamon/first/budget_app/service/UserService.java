@@ -40,8 +40,8 @@ public class UserService {
     }
 
     private void enrichUser(User user) {
-        user.setCreated_at(LocalDateTime.now());
-        user.setUpdated_at(LocalDateTime.now());
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
     }
 
 

@@ -52,8 +52,8 @@ public class AuthService {
         wallet.setMoney(random.nextInt(3000) + 3000);
         wallet.setUser(user);
         user.setWallet(wallet);
-        wallet.setCreated_at(null);
-        wallet.setUpdated_at(null);
+        wallet.setCreatedAt(null);
+        wallet.setUpdatedAt(null);
         userRepository.save(user);
         walletService.save(wallet);
         createEventForUser(user);

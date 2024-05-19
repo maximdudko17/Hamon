@@ -25,10 +25,12 @@ public class SecurityConfig {
     private final JWTFilter jwtFilter;
 
     private static final String[] AUTH_WHITELIST = {
+            "/authenticate/**",
             "/swagger-resources/**",
             "/swagger-ui/**",
-            "/api/v1/**",
-            "/api/**"
+            "/v3/api-docs/**",
+            "/api/v1/app/user/auth/**"
+
     };
 
     @Autowired
@@ -43,12 +45,12 @@ public class SecurityConfig {
         http.cors().and().csrf().disable();
         http.httpBasic().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         http.authorizeHttpRequests((authz) -> {
             authz
-                    .requestMatchers("/login/**").permitAll()
-                    .requestMatchers("/registration/**").permitAll()
+                    .requestMatchers("/auth/**").permitAll()
                     .requestMatchers(AUTH_WHITELIST).permitAll()
-                    .anyRequest().permitAll();
+                    .anyRequest().authenticated();
 
         });
         http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));

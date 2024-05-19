@@ -49,7 +49,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("id") int id){
-        return new ResponseEntity<>(toUserDTO(userService.findById(id)), HttpStatus.OK); //Into JSON
+        return new ResponseEntity<>(toUserDTO(userService.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping("/create")
@@ -57,15 +57,6 @@ public class UserController {
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @ResponseBody
-//    public UserDTO createPost(@RequestBody UserDTO userDTO) {
-//        User user = toUser(userDTO);
-//        userService.save(user);
-//        return toUserDTO(user);
-//    }
 
     @PostMapping("/registration")
     public ResponseEntity<HttpStatus> registration(@RequestBody @Valid UserDTO userDTO) {

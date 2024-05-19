@@ -39,8 +39,8 @@ public class WalletService {
     }
 
     @Transactional
-    public void increaseWalletAmount(int amount, int wallet_id){
-        Wallet wallet = findById(wallet_id);
+    public void increaseWalletAmount(int amount, int walletId){
+        Wallet wallet = findById(walletId);
         if (wallet == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -49,8 +49,8 @@ public class WalletService {
     }
 
     @Transactional
-    public void decreaseWalletAmount(int amount, int wallet_id){
-        Wallet wallet = findById(wallet_id);
+    public void decreaseWalletAmount(int amount, int walletId){
+        Wallet wallet = findById(walletId);
         if (wallet == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -70,7 +70,7 @@ public class WalletService {
     }
 
     private void enrichSensor(Wallet wallet) {
-        wallet.setCreated_at(LocalDateTime.now());
+        wallet.setCreatedAt(LocalDateTime.now());
     }
 
 

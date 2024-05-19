@@ -53,7 +53,6 @@ public class TransactionService {
 
     @Transactional
     public void save(Transaction transaction){
-       // transaction.setCategory(categoryRepository.findByName());
         transactionRepository.save(transaction);
     }
 

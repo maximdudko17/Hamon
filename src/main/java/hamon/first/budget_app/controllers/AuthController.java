@@ -4,7 +4,6 @@ import hamon.first.budget_app.DTO.AuthenticationDTO;
 import hamon.first.budget_app.DTO.UserDTO;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.service.AuthService;
-import hamon.first.budget_app.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +32,11 @@ public class AuthController {
     @Operation(summary = "Регистрация пользователя", tags = {"add"})
     @PostMapping("/registration")
     public ResponseEntity<?> registration(@RequestBody UserDTO userDTO){
-        //try {
+        try {
             return new ResponseEntity<>(authService.register(convertToUser(userDTO)), HttpStatus.OK);
-        //} catch (Exception e){
-           // return new ResponseEntity<>("Ошибка при регистрации", HttpStatus.NOT_FOUND);
-       // }
+        } catch (Exception e){
+            return new ResponseEntity<>("Ошибка при регистрации", HttpStatus.NOT_FOUND);
+        }
     }
     @Operation(summary = "Аутентификация пользователя", tags = {"login"})
     @PostMapping("/login")

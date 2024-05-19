@@ -11,13 +11,11 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
-    private final TransactionRepository transactionRepository;
 
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public CategoryService(TransactionRepository transactionRepository, CategoryRepository categoryRepository) {
-        this.transactionRepository = transactionRepository;
+    public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
