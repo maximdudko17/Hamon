@@ -4,8 +4,8 @@ import hamon.first.budget_app.models.Category;
 import hamon.first.budget_app.models.Event;
 import hamon.first.budget_app.models.User;
 import hamon.first.budget_app.repositories.EventRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +22,20 @@ public class EventService {
 
     public List<Event> getReasonEventsByWalletAndUser(Category category, User user){
         return eventRepository.getEventsByReasonCategoryAndUser(category.getId(), user.getId());
+    }
+
+    public List<Event> getConsequenceEventsByWalletAndUser(Category category, User user){
+        return eventRepository.getEventsByConsequenceCategoryAndUser(category, user);
+    }
+
+    @Transactional
+    public void save(Event event){
+        eventRepository.save(event);
+    }
+
+    @Transactional
+    public void deleteByUser(User user){
+        eventRepository.deleteByUser(user);
     }
 
     public void addEvent(Category reasonCategory, Category consequencesCategory, String description,

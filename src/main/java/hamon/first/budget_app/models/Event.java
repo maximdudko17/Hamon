@@ -1,5 +1,6 @@
 package hamon.first.budget_app.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,14 +20,17 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "reason_category_id", referencedColumnName = "id")
+    @JsonIgnore
     private Category reasonCategory;
 
     @ManyToOne
     @JoinColumn(name = "consequence_category_id", referencedColumnName = "id")
+    @JsonIgnore
     private Category consequenceCategory;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private User user;
 
     @Column(name = "description")

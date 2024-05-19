@@ -18,4 +18,8 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     where reason_category_id = ?1 and event.user_id = ?2
     """, nativeQuery = true)
     List<Event> getEventsByReasonCategoryAndUser(int categoryId, int userId);
+
+    List<Event> getEventsByConsequenceCategoryAndUser(Category category, User user);
+
+    void deleteByUser(User user);
 }

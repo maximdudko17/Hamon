@@ -38,7 +38,6 @@ public class WalletService {
         return walletRepository.findByUser(user);
     }
 
-
     @Transactional
     public void increaseWalletAmount(int amount, int wallet_id){
         Wallet wallet = findById(wallet_id);

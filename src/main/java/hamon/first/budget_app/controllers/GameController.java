@@ -31,8 +31,7 @@ public class GameController {
     public ResponseEntity<?> nextWeek(@RequestBody WeekBudgetRequest weekBudgetRequest,
                                       UsernamePasswordAuthenticationToken auth){
 
-        gameService.nextWeek(weekBudgetRequest, userService.loadUserByUsername(auth.getName()).get());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok(gameService.nextWeek(weekBudgetRequest, userService.loadUserByUsername(auth.getName()).get()));
     }
 
 
